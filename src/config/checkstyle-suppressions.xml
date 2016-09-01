@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suppressions PUBLIC "-//Puppy Crawl//DTD Suppressions 1.1//EN" "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress checks="RedundantThrows" files=".*\.java" />
+    <suppress checks="IllegalThrows" files=".*\.java" />
+    <suppress checks="IllegalCatch" files=".*\.java" />
+    <suppress checks="IllegalToken" files=".*\.java" />
+    <suppress checks="ParameterAssignment" files=".*\.java" />
+    <suppress checks="InnerAssignment" files=".*\.java" />
+    <suppress checks="EmptyBlock" files=".*\.java" />
+    <suppress checks="FileLength" files=".*\.java" />
+    <suppress checks="JUnitTestCase" files=".*\.java" />
+    <suppress checks="CyclomaticComplexity" files=".*\.java" />
+    <suppress checks="NPathComplexity" files=".*\.java" />
+
+    <suppress checks="Javadoc.*" files=".*Test(s)*\.java" />
+    <suppress checks="VisibilityModifier" files=".*Test(s)*\.java" />
+    <suppress checks="JavadocPackage" files=".*/test/.*" />
+    <suppress checks="IllegalThrows" files=".*/test/.*\.java" />
+    <suppress checks="IllegalCatch" files=".*/test/.*\.java" />
+</suppressions>
