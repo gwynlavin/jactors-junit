@@ -7,12 +7,10 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.jactors.junit.Expect.Helper;
-import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.rule.ExpectRule;
 import org.jactors.junit.test.ParameterTest;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +21,6 @@ import org.junit.runners.Suite;
 /**
  * Expect test.
  */
-@Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
     {
@@ -34,19 +31,7 @@ import org.junit.runners.Suite;
         ExpectTest.RuleBehavior.class
     }
 )
-public class ExpectTest {
-
-    /**
-     * Unknown enum types for testing.
-     */
-    protected static interface Unknown {
-
-        /**
-         * Unknown matcher.
-         */
-        public static final Expect.Matcher MATCHER_UNKNOWN = //
-            AccessHelper.Enums.insert(Expect.Matcher.class, "UNKNOWN", -1, null);
-    }
+public class ExpectTest implements EnumTest.Unknown {
 
     /**
      * JUnit test annotation mock.
@@ -93,7 +78,7 @@ public class ExpectTest {
      * Check rule behavior.
      */
     @FixMethodOrder(MethodSorters.JVM)
-    public static final class RuleBehavior implements Unknown {
+    public static final class RuleBehavior {
 
         /**
          * Activate expectation rule.
@@ -179,7 +164,7 @@ public class ExpectTest {
      * Check expectation builder behavior.
      */
     @FixMethodOrder(MethodSorters.JVM)
-    public static final class BuilderBehavior implements Unknown {
+    public static final class BuilderBehavior {
 
         /**
          * Activate expectation rule.
@@ -484,7 +469,7 @@ public class ExpectTest {
      * Check expectation matcher behavior.
      */
     @FixMethodOrder(MethodSorters.JVM)
-    public static final class MatcherBehavior extends ParameterTest implements Unknown {
+    public static final class MatcherBehavior extends ParameterTest {
 
         /**
          * Actual message string.
@@ -566,7 +551,7 @@ public class ExpectTest {
     /**
      * Check expectation helper match method behavior.
      */
-    public static final class StringMatcherBehavior extends ParameterTest implements Unknown {
+    public static final class StringMatcherBehavior extends ParameterTest {
 
         /**
          * Actual message string.
@@ -672,7 +657,7 @@ public class ExpectTest {
     /**
      * Check expectation helper match method behavior.
      */
-    public static final class ExpectMatcherBehavior extends ParameterTest implements Unknown {
+    public static final class ExpectMatcherBehavior extends ParameterTest {
 
         /**
          * Expectation to define expect matcher.

@@ -1,11 +1,9 @@
-package org.jactors.junit;
+package org.jactors.junit.helper;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-import org.jactors.junit.helper.AccessHelper;
+import org.hamcrest.CoreMatchers;
+import org.jactors.junit.Expect;
 import org.jactors.junit.theory.EnumTheory;
+import org.junit.Assert;
 import org.junit.experimental.theories.DataPoints;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -56,10 +54,10 @@ public class EnumTest extends EnumTheory {
      * Ensure that all enums are extended.
      */
     public static void ensure() {
-        assertThat(Unknown.MATCHER_UNKNOWN, is(notNullValue()));
-        assertThat(Unknown.MODE_FAILURE_UNKNOWN, is(notNullValue()));
-        assertThat(Unknown.MODE_BEAN_UNKNOWN, is(notNullValue()));
-        assertThat(Unknown.TYPE_RESOLVE_UNKNOWN, is(notNullValue()));
+        Assert.assertThat(Unknown.MATCHER_UNKNOWN, CoreMatchers.is(CoreMatchers.notNullValue()));
+        Assert.assertThat(Unknown.MODE_FAILURE_UNKNOWN, CoreMatchers.is(CoreMatchers.notNullValue()));
+        Assert.assertThat(Unknown.MODE_BEAN_UNKNOWN, CoreMatchers.is(CoreMatchers.notNullValue()));
+        Assert.assertThat(Unknown.TYPE_RESOLVE_UNKNOWN, CoreMatchers.is(CoreMatchers.notNullValue()));
     }
 
     /**

@@ -1,18 +1,26 @@
 package org.jactors.junit.rule;
 
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
 import org.jactors.junit.test.SimpleTest;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
-
 
 /**
  * Base rule test.
  */
 @FixMethodOrder(MethodSorters.JVM)
 public class BaseRuleTest extends SimpleTest {
+    /**
+     * Ensure enums are extended.
+     */
+    @BeforeClass
+    public static void before() {
+       EnumTest.ensure();
+    }
 
     /**
      * Check base rule for duplicate description setup.

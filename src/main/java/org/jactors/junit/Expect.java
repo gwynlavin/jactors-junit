@@ -17,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
 
-
 /**
  * Expected exception failure annotation used by rules and theories to express custom exception
  * failure expectations.

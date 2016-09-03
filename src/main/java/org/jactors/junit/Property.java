@@ -18,9 +18,6 @@ import org.hamcrest.CoreMatchers;
 import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.helper.BeanHelper;
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 /**
  * Property definition.
@@ -365,11 +362,6 @@ public @interface Property {
         private static final class Atom<Type> {
 
             /**
-             * Logger instance for auditing output.
-             */
-            private static final Logger LOG = LoggerFactory.getLogger(Atom.class);
-
-            /**
              * Property definition.
              */
             protected final BeanHelper.Property<Type> property;
@@ -400,7 +392,6 @@ public @interface Property {
              */
             protected Atom(BeanHelper.Property<Type> property, BeanHelper.Accessor<Type> accessor, Expect.Rule expect,
                     Type value) {
-                LOG.debug("create atom [property={}, value={}]", property, value);
                 if (property == null) {
                     throw new IllegalArgumentException("property definition must not be null");
                 } else if (accessor == null) {
@@ -422,8 +413,6 @@ public @interface Property {
              * @throws  Throwable  any exception that is not expected.
              */
             public void check(Object target) throws Throwable {
-                LOG.info("check atom [property={}, target={}, value={}]",
-                    new Object[] { this.property, target, this.value });
                 String context = "property=" + this.property + ", target=" + target + ", value=" + this.value;
                 Type before = this.accessor.get(target);
                 try {

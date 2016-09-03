@@ -2403,12 +2403,12 @@ public abstract class AccessHelper {
     /**
      * Bean access helper.
      */
-    protected abstract static class Beans {
+    public abstract static class Beans {
 
         /**
          * Bean property resolution mode (used for field, getter, and setter resolution).
          */
-        protected static enum Mode {
+        public static enum Mode {
 
             /**
              * Resolution mode for strict named and strict typed property.

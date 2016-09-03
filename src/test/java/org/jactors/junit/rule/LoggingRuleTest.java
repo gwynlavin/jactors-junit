@@ -1,19 +1,27 @@
 package org.jactors.junit.rule;
 
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
 import org.jactors.junit.test.SimpleTest;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-
 /**
  * Logging rule test.
  */
 @FixMethodOrder(MethodSorters.JVM)
 public class LoggingRuleTest extends SimpleTest {
+    /**
+     * Ensure enums are extended.
+     */
+    @BeforeClass
+    public static void before() {
+       EnumTest.ensure();
+    }
 
     /**
      * Static logging rule to improve audit output.

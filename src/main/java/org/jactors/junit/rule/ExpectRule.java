@@ -16,7 +16,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-
 /**
  * Expectation rule is an improvement of {@link org.junit.rules.ExpectedException} that allows to
  * define failure results by annotation. Besides the native annotation {@link Expect}, it evaluates

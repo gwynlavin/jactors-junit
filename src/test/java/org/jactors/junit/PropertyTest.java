@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
 
-
 /**
  * Property test.
  */
@@ -32,7 +31,7 @@ import org.junit.runners.Suite;
         PropertyTest.AtomObjectTheory.class
     }
 )
-public final class PropertyTest {
+public final class PropertyTest implements EnumTest.Unknown {
 
     /**
      * Private atom class type.

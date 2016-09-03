@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.hamcrest.CoreMatchers;
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
 import org.jactors.junit.Property;
 import org.jactors.junit.rule.ExpectRule;
@@ -36,7 +37,6 @@ import org.jactors.junit.theory.ObjectTheory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
@@ -48,11 +48,9 @@ import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Suite;
 
-
 /**
  * Access helper test suite.
  */
-@Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
     {
@@ -65,7 +63,7 @@ import org.junit.runners.Suite;
         AccessHelperTest.BeansBehavior.class,
     }
 )
-public class AccessHelperTest {
+public class AccessHelperTest implements EnumTest.Unknown {
 
     /**
      * Base class name.
@@ -101,35 +99,6 @@ public class AccessHelperTest {
      */
     protected static final Method SETTER_VALUE = //
         AccessHelper.Methods.resolve(Base.class, NAME_VALUE, new Class[] { long.class });
-
-    /**
-     * Unknown enum types for testing.
-     */
-    protected static interface Unknown {
-
-        /**
-         * Unknown enumeration element name.
-         */
-        public static final String NAME_UNKNOWN = "UNKNOWN";
-
-        /**
-         * Unknown failure mode.
-         */
-        public static final AccessHelper.Failure.Mode MODE_FAILURE_UNKNOWN = //
-            AccessHelper.Enums.insert(AccessHelper.Failure.Mode.class, NAME_UNKNOWN, -1, null);
-
-        /**
-         * Unknown bean property resolution mode.
-         */
-        public static final AccessHelper.Beans.Mode MODE_BEAN_UNKNOWN = //
-            AccessHelper.Enums.insert(AccessHelper.Beans.Mode.class, NAME_UNKNOWN, -1, null);
-
-        /**
-         * Unknown resolution type.
-         */
-        public static final AccessHelper.Resolve.Type TYPE_RESOLVE_UNKNOWN = //
-            AccessHelper.Enums.insert(AccessHelper.Resolve.Type.class, NAME_UNKNOWN, -1, null);
-    }
 
     /**
      * Base bean getter/setter test class.
@@ -628,7 +597,7 @@ public class AccessHelperTest {
      */
     @FixMethodOrder(MethodSorters.JVM)
     @RunWith(BlockJUnit4ClassRunner.class)
-    public static final class FailureBehavior implements Unknown {
+    public static final class FailureBehavior {
 
         /**
          * Activate expectation rule.
@@ -817,7 +786,7 @@ public class AccessHelperTest {
      */
     @FixMethodOrder(MethodSorters.JVM)
     @RunWith(BlockJUnit4ClassRunner.class)
-    public static final class FieldsBehavior implements Unknown {
+    public static final class FieldsBehavior {
 
         /**
          */
@@ -1235,7 +1204,7 @@ public class AccessHelperTest {
      */
     @FixMethodOrder(MethodSorters.JVM)
     @RunWith(BlockJUnit4ClassRunner.class)
-    public static final class MethodsBehavior implements Unknown {
+    public static final class MethodsBehavior {
 
         /**
          * Activate expectation rule.
@@ -1452,7 +1421,7 @@ public class AccessHelperTest {
          */
         @FixMethodOrder(MethodSorters.JVM)
         @RunWith(BlockJUnit4ClassRunner.class)
-        public static final class DefaultBehavior implements Unknown {
+        public static final class DefaultBehavior {
 
             /**
              * Test class resolution for class with given name.
@@ -1682,7 +1651,7 @@ public class AccessHelperTest {
          */
         @FixMethodOrder(MethodSorters.JVM)
         @RunWith(BlockJUnit4ClassRunner.class)
-        public static final class DefaultBehavior implements Unknown {
+        public static final class DefaultBehavior {
 
             /**
              * Activate expectation rule.
@@ -2105,7 +2074,7 @@ public class AccessHelperTest {
         /**
          * Object access helper copy behavior test.
          */
-        public static final class CopyBehavior extends ParameterTest implements Unknown {
+        public static final class CopyBehavior extends ParameterTest {
 
             /**
              * Copy test type.
@@ -2236,7 +2205,7 @@ public class AccessHelperTest {
      */
     @FixMethodOrder(MethodSorters.JVM)
     @RunWith(BlockJUnit4ClassRunner.class)
-    public static final class EnumsBehavior implements Unknown {
+    public static final class EnumsBehavior {
 
         /**
          * Safe days before execution.
@@ -2556,7 +2525,7 @@ public class AccessHelperTest {
          */
         @FixMethodOrder(MethodSorters.JVM)
         @RunWith(BlockJUnit4ClassRunner.class)
-        public static final class DefaultBehavior implements Unknown {
+        public static final class DefaultBehavior {
 
             /**
              * Activate expectation rule.
@@ -2745,7 +2714,7 @@ public class AccessHelperTest {
         /**
          * Beans access helper bean property field behavior test.
          */
-        public static final class FieldBehavior extends ParameterTest implements Unknown {
+        public static final class FieldBehavior extends ParameterTest {
 
             /**
              * Class type of property owner.
@@ -2827,7 +2796,7 @@ public class AccessHelperTest {
         /**
          * Beans access helper bean property getter behavior test.
          */
-        public static final class GetterBehavior extends ParameterTest implements Unknown {
+        public static final class GetterBehavior extends ParameterTest {
 
             /**
              * Class type of property owner.
@@ -2909,7 +2878,7 @@ public class AccessHelperTest {
         /**
          * Beans access helper bean property setter behavior test.
          */
-        public static final class SetterBehavior extends ParameterTest implements Unknown {
+        public static final class SetterBehavior extends ParameterTest {
 
             /**
              * Class type of property owner.

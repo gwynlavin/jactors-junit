@@ -1,11 +1,12 @@
 package org.jactors.junit.rule;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simple logging rule to distinguish test output. May be applied on class level as well as method
@@ -21,7 +22,7 @@ public class LoggingRule extends BaseRule implements TestRule {
     /**
      * Print stream for output.
      */
-    private final PrintStream out = System.out;
+    private final Logger log;
 
     /**
      * Create logging rule with default separator character ('#') and with (128).
@@ -38,6 +39,7 @@ public class LoggingRule extends BaseRule implements TestRule {
      */
     public LoggingRule(char sep, int size) {
         this.sep = this.separtor(sep, size);
+        this.log = LoggerFactory.getLogger(LoggingRule.class);
     }
 
     /**
@@ -79,10 +81,10 @@ public class LoggingRule extends BaseRule implements TestRule {
      * @param  descr  test description.
      */
     protected void footer(String name, String descr) {
-        StringBuilder builder = new StringBuilder((this.sep.length() * 3) + 8);
-        builder.append(this.sep).append('\n');
+        StringBuilder builder = new StringBuilder((this.sep.length() * 3) + 12);
+        builder.append('\n').append(this.sep).append('\n');
         this.append(builder, "End-Test: ", name);
-        this.out.println(builder.append(this.sep));
+        this.log.info(builder.append(this.sep).toString());
     }
 
     /**
@@ -92,13 +94,13 @@ public class LoggingRule extends BaseRule implements TestRule {
      * @param  descr  test description.
      */
     protected void header(String name, String descr) {
-        StringBuilder builder = new StringBuilder((this.sep.length() * 4) + 8);
-        builder.append(this.sep).append('\n');
+        StringBuilder builder = new StringBuilder((this.sep.length() * 4) + 12);
+        builder.append('\n').append(this.sep).append('\n');
         this.append(builder, "Start-Test: ", name);
         if (!name.equals(descr)) {
             this.append(builder, "Description: ", descr);
         }
-        this.out.println(builder.append(this.sep));
+        this.log.info(builder.append(this.sep).toString());
     }
 
     /**

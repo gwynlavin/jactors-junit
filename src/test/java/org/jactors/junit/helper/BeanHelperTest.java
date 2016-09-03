@@ -6,13 +6,14 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.hamcrest.CoreMatchers;
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
 import org.jactors.junit.Property;
+import org.jactors.junit.helper.AccessHelperTest.Base;
 import org.jactors.junit.rule.ExpectRule;
 import org.jactors.junit.test.ParameterTest;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
@@ -27,7 +28,6 @@ import org.junit.runners.Suite;
 /**
  * Access helper test suite.
  */
-@Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
     {
@@ -35,7 +35,7 @@ import org.junit.runners.Suite;
         BeanHelperTest.AccessorBehavior.class,
     }
 )
-public class BeanHelperTest extends AccessHelperTest {
+public class BeanHelperTest implements EnumTest.Unknown {
 
     /**
      * Name for integer.
@@ -168,7 +168,7 @@ public class BeanHelperTest extends AccessHelperTest {
          */
         @FixMethodOrder(MethodSorters.JVM)
         @RunWith(BlockJUnit4ClassRunner.class)
-        public static final class DefaultBehavior implements AccessHelperTest.Unknown {
+        public static final class DefaultBehavior {
 
             /**
              * Invalid getter/setter test method.

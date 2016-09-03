@@ -1,7 +1,10 @@
 package org.jactors.junit.rule;
 
+import net.jcip.annotations.NotThreadSafe;
+
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.test.SimpleTest;
 import org.junit.After;
@@ -11,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.Description;
@@ -21,13 +25,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 
-
 /**
  * Simple spring rule test.
  */
+@Ignore
+@NotThreadSafe
 @FixMethodOrder(MethodSorters.JVM)
 @ContextConfiguration("classpath:spring-test.xml")
 public class SpringRuleTest extends SimpleTest {
+    /**
+     * Ensure enums are extended.
+     */
+    @BeforeClass
+    public static void before() {
+       EnumTest.ensure();
+    }
 
     /**
      * Additional spring class rule for dependency injection to check scanning.

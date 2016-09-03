@@ -12,7 +12,6 @@ import org.junit.runners.model.Statement;
 import org.springframework.test.annotation.ProfileValueUtils;
 import org.springframework.test.context.TestContextManager;
 
-
 /**
  * Simple spring rules that allows to create a spring application contexts that (1) inject spring
  * beans and (2) introduce transaction behavior. The rule may either be applied on class level

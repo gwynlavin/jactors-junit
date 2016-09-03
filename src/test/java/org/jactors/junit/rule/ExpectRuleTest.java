@@ -1,15 +1,16 @@
 package org.jactors.junit.rule;
 
 import org.hamcrest.CoreMatchers;
+import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
 import org.jactors.junit.test.SimpleTest;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
-
 
 /**
  * Expect rulte test.
@@ -17,6 +18,13 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ ExpectRuleTest.RuleBehavior.class })
 public class ExpectRuleTest {
+    /**
+     * Ensure enums are extended.
+     */
+    @BeforeClass
+    public static void before() {
+       EnumTest.ensure();
+    }
 
     /**
      * Check rule behavior.
