@@ -8,7 +8,6 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.data.MapEntry;
 import org.jactors.junit.Expect;
-import org.jactors.junit.builder.MapBuilder;
 import org.jactors.junit.test.SimpleTest;
 import org.jactors.junit.theory.ObjectTheory;
 import org.junit.FixMethodOrder;
@@ -30,7 +29,7 @@ import org.junit.runners.Suite;
         MapBuilderTest.BuilderObjectTheory.class
     }
 )
-public class MapBuilderTest { // NOPMD: test suite!
+public class MapBuilderTest {
 
     /**
      * Check map builder behavior.

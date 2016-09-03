@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Theories.class)
-public abstract class ObjectTheory { // NOPMD: only extendible.
+public abstract class ObjectTheory {
 
     /**
      * Default null data point.
@@ -52,7 +52,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
     /**
      * Default number of consistency check rounds.
      */
-    protected static final int CONSISTENCY_CHECKS = 10;
+    protected static final int CONSISTENCY_CHECKS = 5;
 
     /**
      * Whether object theory for equals is enabled.
@@ -113,7 +113,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
     public final void equalsIsSame(Object x, Object y) {
         if (this.equals) {
             Assume.assumeNotNull(x);
-            Assume.assumeTrue(x == y); // NOPMD: needed!
+            Assume.assumeTrue(x == y);
             Assert.assertThat(x.equals(y), CoreMatchers.is(true));
         }
     }
@@ -132,7 +132,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
         if (this.equals) {
             Assume.assumeNotNull(x);
             Assume.assumeNotNull(y);
-            Assume.assumeTrue(x != y); // NOPMD: needed!
+            Assume.assumeTrue(x != y);
             Assume.assumeTrue(x.equals(y));
             Assert.assertThat(x.equals(y), CoreMatchers.is(true));
         }
@@ -168,7 +168,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
         if (this.equals) {
             Assume.assumeNotNull(x);
             Assume.assumeNotNull(y);
-            Assume.assumeTrue(x != y); // NOPMD: needed!
+            Assume.assumeTrue(x != y);
             boolean same = x.equals(y);
             Assert.assertThat(y.equals(x), CoreMatchers.is(same));
         }
@@ -226,7 +226,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
     public final void equalsReturnFalseOnNull(Object x) {
         if (this.equals) {
             Assume.assumeNotNull(x);
-            Assert.assertThat(x.equals(null), CoreMatchers.is(false)); // NOPMD: not possible!
+            Assert.assertThat(x.equals(null), CoreMatchers.is(false));
         }
     }
 
@@ -242,7 +242,26 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
     public final void equalsReturnFalseOnOtherType(Object x) {
         if (this.equals) {
             Assume.assumeNotNull(x);
-            Assert.assertThat(x.equals(new Object()), CoreMatchers.is(false)); // NOPMD: not possible!
+            Assert.assertThat(x.equals(new Object()), CoreMatchers.is(false));
+        }
+    }
+
+    /**
+     * Check {@link Object#equals(Object)} is always consistent with itself condition: an object without
+     * being changed in between always returns the same description about itself.
+     *
+     * @param  x  primary object instance.
+     * @param  y  secondary object instance.
+     */
+    @Theory(nullsAccepted = false)
+    public final void equalsStaySame(Object x, Object y) {
+        if (this.string) {
+            Assume.assumeNotNull(x);
+            boolean equals = x.equals(y);
+
+            for (int count = 0; count < this.checks; count++) {
+                Assert.assertEquals(equals, x.equals(y));
+            }
         }
     }
 
@@ -283,6 +302,24 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
     }
 
     /**
+     * Check {@link Object#hashCode()} is always consistent with itself condition: an object without
+     * being changed in between always returns the same description about itself.
+     *
+     * @param  x  primary object instance.
+     */
+    @Theory(nullsAccepted = false)
+    public final void hashCodeStaySame(Object x) {
+        if (this.string) {
+            Assume.assumeNotNull(x);
+            int hashCode = x.hashCode();
+
+            for (int count = 0; count < this.checks; count++) {
+                Assert.assertEquals(hashCode, x.hashCode());
+            }
+        }
+    }
+
+    /**
      * Check {@link Object#toString()} provides sufficient description condition:
      * {@link Object#toString()} never returns {@code null} or an empty string.
      *
@@ -305,10 +342,11 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
      * @param  x  primary object instance.
      */
     @Theory(nullsAccepted = false)
-    public final void toStringConsistent(Object x) {
+    public final void toStringStaySame(Object x) {
         if (this.string) {
             Assume.assumeNotNull(x);
             String string = x.toString();
+
             for (int count = 0; count < this.checks; count++) {
                 Assert.assertEquals(string, x.toString());
             }
@@ -342,6 +380,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
         /**
          * Create cloned object for given source object via simple serialization.
          *
+         * @param   <Type>  object type.
          * @param   object  source object.
          *
          * @return  cloned object.
@@ -445,7 +484,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
             /**
              * {@inheritDoc}
              */
-            protected Class<?> resolveClass(ObjectStreamClass oclazz) throws IOException, ClassNotFoundException {
+            protected Class<?> resolveClass(ObjectStreamClass oclazz) throws IOException {
                 Class<?> clazz = this.queue.poll();
                 String actual = (clazz == null) ? null : clazz.getName();
                 if (!oclazz.getName().equals(actual)) {
@@ -458,7 +497,7 @@ public abstract class ObjectTheory { // NOPMD: only extendible.
             /**
              * {@inheritDoc}
              */
-            protected Class<?> resolveProxyClass(String[] ifaces) throws IOException, ClassNotFoundException {
+            protected Class<?> resolveProxyClass(String[] ifaces) {
                 return this.queue.poll();
             }
         }

@@ -1,7 +1,6 @@
 package org.jactors.junit.rule;
 
 import org.jactors.junit.Expect;
-import org.jactors.junit.rule.LoggingRule;
 import org.jactors.junit.test.SimpleTest;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
@@ -14,7 +13,7 @@ import org.junit.runners.MethodSorters;
  * Logging rule test.
  */
 @FixMethodOrder(MethodSorters.JVM)
-public class LoggingRuleTest extends SimpleTest { // NOPMD: simple test
+public class LoggingRuleTest extends SimpleTest {
 
     /**
      * Static logging rule to improve audit output.

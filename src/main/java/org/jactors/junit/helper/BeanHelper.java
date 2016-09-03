@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * Bean access helper.
  */
-public abstract class BeanHelper { // NOPMD: helper!
+public abstract class BeanHelper {
 
     /**
      * Inject given injection value on target object into target fields with given field name. If no
@@ -143,17 +143,17 @@ public abstract class BeanHelper { // NOPMD: helper!
         /**
          * Property field name (may be virtual).
          */
-        protected final Fields field; // NOPMD: personal style!
+        protected final Fields field;
 
         /**
          * Property getter method name.
          */
-        protected final Methods getter; // NOPMD: personal style!
+        protected final Methods getter;
 
         /**
          * Property setter method name.
          */
-        protected final Methods setter; // NOPMD: personal style!
+        protected final Methods setter;
 
         /**
          * Common property and accessor descriptor with given field descriptor, getter descriptor,
@@ -260,7 +260,7 @@ public abstract class BeanHelper { // NOPMD: helper!
         /**
          * Property class type definition.
          */
-        private final Class<Type> type; // NOPMD: personal style!
+        private final Class<Type> type;
 
         /**
          * Create property definition for given declaring class type, given property field name,
@@ -331,7 +331,7 @@ public abstract class BeanHelper { // NOPMD: helper!
         /**
          * Bean property definition.
          */
-        private final Property<Type> property; // NOPMD: personal style!
+        private final Property<Type> property;
 
         /**
          * Bean sub-property name ({@code null} if not available).
@@ -384,7 +384,7 @@ public abstract class BeanHelper { // NOPMD: helper!
             try {
                 return this.read(target);
             } catch (AccessHelper.Failure failure) {
-                throw failure.getTarget(Throwable.class); // NOPMD: as planned!
+                throw failure.getTarget(Throwable.class);
             }
         }
 
@@ -436,7 +436,7 @@ public abstract class BeanHelper { // NOPMD: helper!
             try {
                 return this.write(target, value);
             } catch (AccessHelper.Failure failure) {
-                throw failure.getTarget(Throwable.class); // NOPMD: as planned!
+                throw failure.getTarget(Throwable.class);
             }
         }
 
@@ -532,7 +532,7 @@ public abstract class BeanHelper { // NOPMD: helper!
         /**
          * Property helper.
          */
-        protected abstract static class Helper { // NOPMD: helper!
+        protected abstract static class Helper {
 
             /**
              * Group index of bean path.

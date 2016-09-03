@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.jactors.junit.Expect;
-import org.jactors.junit.builder.CollectionBuilder;
 import org.jactors.junit.test.SimpleTest;
 import org.jactors.junit.theory.ObjectTheory;
 import org.junit.FixMethodOrder;
@@ -28,7 +27,7 @@ import org.junit.runners.Suite;
         CollectionBuilderTest.BuilderObjectTheory.class
     }
 )
-public class CollectionBuilderTest { // NOPMD: test suite!
+public class CollectionBuilderTest {
 
     /**
      * Check collection builder behavior.

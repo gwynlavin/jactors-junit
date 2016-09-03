@@ -3,7 +3,6 @@ package org.jactors.junit.rule;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.jactors.junit.helper.AccessHelper;
-import org.jactors.junit.rule.SpringRule;
 import org.jactors.junit.test.SimpleTest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -28,7 +27,7 @@ import org.springframework.test.context.ContextConfiguration;
  */
 @FixMethodOrder(MethodSorters.JVM)
 @ContextConfiguration("classpath:spring-test.xml")
-public class SpringRuleTest extends SimpleTest { // NOPMD: not true!
+public class SpringRuleTest extends SimpleTest {
 
     /**
      * Additional spring class rule for dependency injection to check scanning.
@@ -120,8 +119,13 @@ public class SpringRuleTest extends SimpleTest { // NOPMD: not true!
         Assertions.assertThat(new SpringRule.MethodRule().apply(null, method, null)).isNull();
     }
 
+    /**
+     * Check method rule statement evaluation.
+     *
+     * @throws Throwable if test fails.
+     */
     @Test
-    public void test() throws Throwable { // NOPMD:
+    public void methodRuleEvaluation() throws Throwable {
         TestStatement statement = new TestStatement();
         FrameworkMethod method = new FrameworkMethod(AccessHelper.Methods.resolve(TestStatement.class, "evaluate"));
         new SpringRule.MethodRule().apply(statement, method, this).evaluate();
@@ -144,7 +148,7 @@ public class SpringRuleTest extends SimpleTest { // NOPMD: not true!
         /**
          * Whether test statement has been evaluated.
          */
-        private boolean evaluated = false;
+        protected boolean evaluated = false;
 
         /**
          * {@inheritDoc}

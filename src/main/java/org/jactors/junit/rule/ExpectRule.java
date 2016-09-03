@@ -38,12 +38,12 @@ public final class ExpectRule extends Expect.Rule implements TestRule {
     /**
      * Expected value object (may be also {@link Expect} or {@link Matcher}).
      */
-    private Object expect = UNSET; // NOPMD: personal style!
+    protected Object expect = UNSET;
 
     /**
      * Actual value object.
      */
-    private Object actual = UNSET; // NOPMD: personal style!
+    protected Object actual = UNSET;
 
     /**
      * Create expect rule with on-demand activation. The rule is only activated, if a test is
@@ -72,7 +72,7 @@ public final class ExpectRule extends Expect.Rule implements TestRule {
      *
      * @return  expected value object.
      */
-    @SuppressWarnings({ "javadoc", "unchecked" })
+    @SuppressWarnings("unchecked")
     public <Type> Type expect(Type expect) {
         if (expect instanceof Expect.Builder) {
             expect = (Type) ((Expect.Builder) expect).build();
@@ -166,7 +166,7 @@ public final class ExpectRule extends Expect.Rule implements TestRule {
     /**
      * Helper class for cleaning up statement chain from exception trapping.
      */
-    private abstract static class Helper { // NOPMD: helper!
+    private abstract static class Helper {
 
         /**
          * Remove all statements extending given statement class type from statement chain with
@@ -176,7 +176,7 @@ public final class ExpectRule extends Expect.Rule implements TestRule {
          * @param  type   class type of statement to remove.
          */
         protected static void remove(Statement chain, Class<? extends Statement> type) {
-            Statement before = chain, next = AccessHelper.Fields.get(chain, Helper.field(chain)); // NOPMD: no resource
+            Statement before = chain, next = AccessHelper.Fields.get(chain, Helper.field(chain));
             while (!(next instanceof InvokeMethod)) {
                 if (type.isAssignableFrom(next.getClass())) {
                     next = AccessHelper.Fields.get(next, Helper.field(next));

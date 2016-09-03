@@ -7,11 +7,10 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-
 /**
  * Simple enumeration theory test for classes in package.
  */
-public class EnumTest extends EnumTheory { // NOPMD: theory testing.
+public class EnumTest extends EnumTheory {
 
     /**
      * All enumeration types in package.

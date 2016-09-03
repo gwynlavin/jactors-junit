@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Theories.class)
-public abstract class CompareTheory<Type> extends ObjectTheory { // NOPMD: only extendible.
+public abstract class CompareTheory<Type> extends ObjectTheory {
 
     /**
      * Whether object theory for equals is enabled.
@@ -172,17 +172,17 @@ public abstract class CompareTheory<Type> extends ObjectTheory { // NOPMD: only 
         /**
          * Label for reporting failures.
          */
-        private final String label; // NOPMD: not unused.
+        protected final String label;
 
         /**
          * Result comparing the .
          */
-        private int value;
+        protected int value;
 
         /**
          * The exception raised (if any) during the comparing of the UUTs.
          */
-        private Exception except;
+        protected Exception except;
 
         /**
          * Create test atom with given atom label, given comparator instance, given primary object
@@ -195,7 +195,7 @@ public abstract class CompareTheory<Type> extends ObjectTheory { // NOPMD: only 
          * @param  y      secondary object instance.
          */
         @SuppressWarnings("unchecked")
-        private Atom(String label, Comparator<Type> c, Type x, Type y) {
+        protected Atom(String label, Comparator<Type> c, Type x, Type y) {
             this.label = label;
             try {
                 if (c != null) {
@@ -218,6 +218,7 @@ public abstract class CompareTheory<Type> extends ObjectTheory { // NOPMD: only 
          * Create error message with given error message prefix, primary test atom, and secondary
          * test atom.
          *
+         * @param   <Type>  type of atom.
          * @param   prefix  error message prefix.
          * @param   a       primary test atom.
          * @param   b       secondary test atom.

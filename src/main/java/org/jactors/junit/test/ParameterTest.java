@@ -13,7 +13,7 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.JVM)
 @RunWith(org.junit.runners.Parameterized.class)
-public abstract class ParameterTest extends SimpleTest { // NOPMD: should be extended!
+public abstract class ParameterTest extends SimpleTest {
 
     /**
      * Create parameterized test without test result object.
@@ -54,7 +54,7 @@ public abstract class ParameterTest extends SimpleTest { // NOPMD: should be ext
          * Default builder constructor.
          */
         protected Builder() {
-            // NOPMD:
+            // nothing to do.
         }
 
         /**

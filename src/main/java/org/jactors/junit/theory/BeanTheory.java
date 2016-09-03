@@ -7,7 +7,6 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-
 /**
  * Bean theory implementation that allows to check validity of bean properties based on naming
  * conventions for getter, setter, and field names. Properties can also be defined by annotating
@@ -15,7 +14,7 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Theories.class)
-public abstract class BeanTheory { // NOPMD: must be inherited!
+public abstract class BeanTheory {
 
     /**
      * Validate target bean object whether it behaves as valid bean object.

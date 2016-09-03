@@ -2,7 +2,6 @@ package org.jactors.junit.rule;
 
 import org.hamcrest.CoreMatchers;
 import org.jactors.junit.Expect;
-import org.jactors.junit.rule.ExpectRule;
 import org.jactors.junit.test.SimpleTest;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -17,7 +16,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ ExpectRuleTest.RuleBehavior.class })
-public class ExpectRuleTest { // NOPMD: test suite!
+public class ExpectRuleTest {
 
     /**
      * Check rule behavior.

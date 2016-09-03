@@ -183,10 +183,14 @@ public @interface Property {
         /**
          * Property helper.
          */
-        private abstract static class Helper { // NOPMD: helper!
-
+        private abstract static class Helper {
+            /**
+             * Any enum value.
+             */
             private static enum AnyEnum {
-
+                /**
+                 * Enum value.
+                 */
                 VALUE;
             }
 
@@ -355,6 +359,8 @@ public @interface Property {
 
         /**
          * Test atom for checking property.
+         *
+         * @param <Type> type of atom.
          */
         private static final class Atom<Type> {
 
@@ -366,7 +372,7 @@ public @interface Property {
             /**
              * Property definition.
              */
-            private final BeanHelper.Property<Type> property;
+            protected final BeanHelper.Property<Type> property;
 
             /**
              * Property access helper.
@@ -392,7 +398,7 @@ public @interface Property {
              * @param  expect    exception expectation builder.
              * @param  value     changed property value.
              */
-            private Atom(BeanHelper.Property<Type> property, BeanHelper.Accessor<Type> accessor, Expect.Rule expect,
+            protected Atom(BeanHelper.Property<Type> property, BeanHelper.Accessor<Type> accessor, Expect.Rule expect,
                     Type value) {
                 LOG.debug("create atom [property={}, value={}]", property, value);
                 if (property == null) {

@@ -1,4 +1,4 @@
-package org.jactors.junit.helper; // NOPMD: test suite
+package org.jactors.junit.helper;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -36,6 +36,7 @@ import org.jactors.junit.theory.ObjectTheory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
@@ -51,6 +52,7 @@ import org.junit.runners.Suite;
 /**
  * Access helper test suite.
  */
+@Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
     {
@@ -63,7 +65,7 @@ import org.junit.runners.Suite;
         AccessHelperTest.BeansBehavior.class,
     }
 )
-public class AccessHelperTest { // NOPMD: test suite
+public class AccessHelperTest {
 
     /**
      * Base class name.
@@ -143,7 +145,7 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Primitive long value.
          */
-        private long value; // NOPMD: personal style.
+        private long value;
 
         /**
          * Primitive integer value.
@@ -316,7 +318,7 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Primitive long value.
          */
-        protected Long value; // NOPMD: personal style.
+        protected Long value;
 
         /**
          * Other long value.
@@ -336,7 +338,7 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Base value array.
          */
-        private Base[] array; // NOPMD: personal style!
+        private Base[] array;
 
         /**
          * Create child from base value.
@@ -824,7 +826,7 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Unknown failure mode for testing.
          */
-        private static AccessHelper.Failure.Mode MODE_CHANGING = // NOPMD: for testing!
+        private static AccessHelper.Failure.Mode MODE_CHANGING = //
             AccessHelper.Enums.create(AccessHelper.Failure.Mode.class, //
                 NAME_CHANGING, AccessHelper.Failure.Mode.values().length, null);
 
@@ -1573,7 +1575,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test class access helper find behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Classes.find(this.name, this.mode));
             }
         }
@@ -1645,7 +1647,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test class access helper generic behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Classes.generic(this.type, this.param, this.bound));
             }
         }
@@ -1666,13 +1668,13 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Base constructor types.
          */
-        private static final Class<?>[] FACTORY_TYPES = //
+        protected static final Class<?>[] FACTORY_TYPES = //
             new Class<?>[] { long.class, int.class };
 
         /**
          * Base constructor.
          */
-        private static final Constructor<Base> FACTORY_BASE = //
+        protected static final Constructor<Base> FACTORY_BASE = //
             AccessHelper.Objects.resolve(Base.class, FACTORY_TYPES);
 
         /**
@@ -2124,8 +2126,12 @@ public class AccessHelperTest { // NOPMD: test suite
              * Copy test type.
              */
             private static enum Type {
-
-                BOTH, COPY, CLONE;
+                /** Test type both. */
+                BOTH,
+                /** Test type copy. */
+                COPY,
+                /** Test type clone. */
+                CLONE;
             }
 
             /**
@@ -2219,7 +2225,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test object access helper copy behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(CopyBehavior.copy(this.type, this.mode, this.target));
             }
         }
@@ -2731,7 +2737,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper bean property field behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.type(this.type, this.name));
             }
         }
@@ -2813,7 +2819,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper bean property field behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.field(this.owner, this.type, this.name, this.mode));
             }
         }
@@ -2895,7 +2901,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper bean property getter behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.getter(this.owner, this.type, this.name, this.mode));
             }
         }
@@ -2977,7 +2983,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper bean property setter behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.setter(this.owner, this.type, this.name, this.mode));
             }
         }
@@ -3313,7 +3319,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper write behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.write(this.target, this.name, this.value));
             }
         }
@@ -3641,7 +3647,7 @@ public class AccessHelperTest { // NOPMD: test suite
              * Test beans access helper read behavior.
              */
             @Test
-            public void test() { // NOPMD: handled by rule!
+            public void test() {
                 this.rule.actual(AccessHelper.Beans.read(this.target, this.name));
             }
         }
@@ -3655,7 +3661,7 @@ public class AccessHelperTest { // NOPMD: test suite
         /**
          * Primitive long value.
          */
-        private final long value; // NOPMD: personal style!
+        private final long value;
 
         /**
          * Create annotation implementation getter/setter test class.

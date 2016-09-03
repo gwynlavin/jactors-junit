@@ -9,13 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.junit.runners.MethodSorters;
 
-
 /**
  * Abstract simple spring capable test.
  */
 @RunWith(JUnit4.class)
 @FixMethodOrder(MethodSorters.JVM)
-public abstract class SimpleTest { // NOPMD: should be extended!
+public abstract class SimpleTest {
 
     /**
      * Spring class rule for dependency injection.

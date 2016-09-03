@@ -1,11 +1,9 @@
-package org.jactors.junit; // NOPMD: test suite!
+package org.jactors.junit;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.jactors.junit.Expect;
-import org.jactors.junit.Property;
 import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.helper.BeanHelper;
 import org.jactors.junit.rule.ExpectRule;
@@ -34,19 +32,19 @@ import org.junit.runners.Suite;
         PropertyTest.AtomObjectTheory.class
     }
 )
-public final class PropertyTest { // NOPMD: suite
+public final class PropertyTest {
 
     /**
      * Private atom class type.
      */
-    private static final Class<Object> CLASS_ATOM = //
+    protected static final Class<Object> CLASS_ATOM = //
         AccessHelper.Classes.resolve(Property.Checker.class, "Atom");
 
     /**
      * Private atom constructor argument types.
      */
     @SuppressWarnings("rawtypes")
-    private static final Class[] TYPES_ATOM = new Class[] {
+    protected static final Class[] TYPES_ATOM = new Class[] {
             BeanHelper.Property.class, BeanHelper.Accessor.class, Expect.Rule.class, Object.class
         };
 
@@ -59,13 +57,13 @@ public final class PropertyTest { // NOPMD: suite
     /**
      * Property description for value.
      */
-    private static final BeanHelper.Property<Long> PROPERTY_VALUE = //
+    protected static final BeanHelper.Property<Long> PROPERTY_VALUE = //
         BeanHelper.create(FIELD_VALUE);
 
     /**
      * Property access helper for value.
      */
-    private static final BeanHelper.Accessor<Long> ACCESS_VALUE = //
+    protected static final BeanHelper.Accessor<Long> ACCESS_VALUE = //
         BeanHelper.create(Primitive.class, PROPERTY_VALUE);
 
     /**
@@ -77,13 +75,13 @@ public final class PropertyTest { // NOPMD: suite
     /**
      * Property description for integer.
      */
-    private static final BeanHelper.Property<Integer> PROPERTY_INTEGER = //
+    protected static final BeanHelper.Property<Integer> PROPERTY_INTEGER = //
         BeanHelper.create(FIELD_INTEGER);
 
     /**
      * Property access helper for integer.
      */
-    private static final BeanHelper.Accessor<Integer> ACCESS_INTEGER = //
+    protected static final BeanHelper.Accessor<Integer> ACCESS_INTEGER = //
         BeanHelper.create(Primitive.class, PROPERTY_INTEGER);
 
     /**
@@ -115,7 +113,7 @@ public final class PropertyTest { // NOPMD: suite
         /**
          * Primitive long value.
          */
-        private long value; // NOPMD: personal style.
+        private long value;
 
         /**
          * Primitive integer value.
@@ -310,7 +308,7 @@ public final class PropertyTest { // NOPMD: suite
         /**
          * Primitive long value.
          */
-        private Long value = null; // NOPMD: personal style.
+        private Long value = null;
 
         /**
          * Primitive integer value.
@@ -320,7 +318,7 @@ public final class PropertyTest { // NOPMD: suite
         /**
          * Primitive short value.
          */
-        private Short shorts = null; // NOPMD: set by test!
+        private Short shorts = null;
 
         /**
          * Primitive byte value.
@@ -330,12 +328,12 @@ public final class PropertyTest { // NOPMD: suite
         /**
          * Primitive float value.
          */
-        private Float floats = null; // NOPMD: set by test!
+        private Float floats = null;
 
         /**
          * Primitive double value.
          */
-        private Double doubles = null; // NOPMD: set by test!
+        private Double doubles = null;
 
         /**
          * Primitive boolean value.
@@ -539,7 +537,9 @@ public final class PropertyTest { // NOPMD: suite
         /**
          * No value enumeration.
          */
-        private static enum NoEnum { }
+        private static enum NoEnum {
+            // nothing to do.
+        }
 
         /**
          * Create complex type with given values.
@@ -927,7 +927,7 @@ public final class PropertyTest { // NOPMD: suite
             type = IllegalArgumentException.class,
             message = "must not be 'x' or 'X' [X]"
         )
-        public final char chars = 'X'; // NOPMD: for testing.
+        public final char chars = 'X';
 
         /**
          * Single value test enmum.

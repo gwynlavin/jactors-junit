@@ -1,4 +1,4 @@
-package org.jactors.junit.helper; // NOPMD: helper!
+package org.jactors.junit.helper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
@@ -95,7 +95,7 @@ public abstract class AccessHelper {
     /**
      * Internal constants.
      */
-    private abstract static class Base { // NOPMD: constants.
+    private abstract static class Base {
 
         /**
          * Group index of bean path.
@@ -152,6 +152,7 @@ public abstract class AccessHelper {
         /**
          * Make given accessible object accessible and return accessible object.
          *
+         * @param   <Type>  object type.
          * @param   object  accessible object.
          *
          * @return  accessible object.
@@ -369,7 +370,7 @@ public abstract class AccessHelper {
             /**
              * Failure specific message.
              */
-            private final String message; // NOPMD: personal style!
+            protected final String message;
 
             /**
              * Create failure type with given failure specific message.
@@ -661,7 +662,7 @@ public abstract class AccessHelper {
         /**
          * Failure message helper.
          */
-        protected static class Helper { // NOPMD: helper!
+        protected static class Helper {
 
             /**
              * Return list of field names for given list of fields.
@@ -941,7 +942,7 @@ public abstract class AccessHelper {
     /**
      * Field specific access methods.
      */
-    public abstract static class Fields { // NOPMD: helper!
+    public abstract static class Fields {
 
         /**
          * Resolve declared field for given declaring class type using given declared field name and
@@ -1086,6 +1087,7 @@ public abstract class AccessHelper {
         /**
          * Resolve annotation field value mapping for given annotation target object.
          *
+         * @param   <Type>  annotation type.
          * @param   target  annotation target object.
          *
          * @return  annotation field value mapping.
@@ -1258,7 +1260,7 @@ public abstract class AccessHelper {
     /**
      * Method specific access methods.
      */
-    public abstract static class Methods { // NOPMD: helper!
+    public abstract static class Methods {
 
         /**
          * Resolve declared method for given declaring class type with given declared method name,
@@ -1467,7 +1469,7 @@ public abstract class AccessHelper {
     /**
      * Class specific access methods.
      */
-    public abstract static class Classes { // NOPMD: helper!
+    public abstract static class Classes {
 
         /**
          * Name to class type mapping.
@@ -1736,7 +1738,7 @@ public abstract class AccessHelper {
     /**
      * Object/Constructor specific access methods.
      */
-    public abstract static class Objects { // NOPMD: helper!
+    public abstract static class Objects {
 
         /**
          * Resolve declared constructor for given declaring class type using default failure
@@ -1810,7 +1812,7 @@ public abstract class AccessHelper {
          */
         public static <Type> Type create(Constructor<Type> factory, Failure.Mode mode, Object... args) {
             try {
-                return (factory != null) ? factory.getDeclaringClass().cast(factory.newInstance(args)) : null;
+                return factory.getDeclaringClass().cast(factory.newInstance(args));
             } catch (Exception except) {
                 switch (mode) {
                     case DEFAULT:
@@ -2040,7 +2042,7 @@ public abstract class AccessHelper {
      * demand. Note: This implementation is based on some internals that might change with new Java
      * versions.
      */
-    public abstract static class Enums { // NOPMD: helper!
+    public abstract static class Enums {
 
         /**
          * Resolve enumeration value for given enumeration class type and enumeration value name
@@ -2223,6 +2225,7 @@ public abstract class AccessHelper {
              * Resolve enumeration value with given enumeration value name from given enumeration
              * values array.
              *
+             * @param   <Type>  enumeration type.
              * @param   values  enumeration values array.
              * @param   name    enumeration value name.
              *
@@ -2241,6 +2244,7 @@ public abstract class AccessHelper {
              * Create enumeration value using given enumeration constructor instance and given
              * enumeration constructor arguments.
              *
+             * @param   <Type>   enumeration type.
              * @param   factory  enumeration constructor instance.
              * @param   args     enumeration constructor arguments.
              *
@@ -2257,6 +2261,7 @@ public abstract class AccessHelper {
              * Update enumeration values field with given enumerations values array and return
              * enumeration values array.
              *
+             * @param   <Type>  enumeration type.
              * @param   field   enumeration values field.
              * @param   values  enumeration values array.
              *
@@ -2275,6 +2280,7 @@ public abstract class AccessHelper {
              * list of enumeration values. If some enumeration values have the same ordinal number,
              * the last enumeration values overrides the previous instances.
              *
+             * @param   <Type>  enumeration type.
              * @param   type    enumeration class type.
              * @param   values  first list of enumeration values.
              * @param   others  second list of enumeration values.
@@ -2299,6 +2305,7 @@ public abstract class AccessHelper {
              * Create and ordered list of enumeration values. If some enumeration values have the
              * same ordinal number, the last enumeration values overrides the previous instances.
              *
+             * @param   <Type>  enumeration type.
              * @param   type    enumeration class type.
              * @param   values  list of enumeration values.
              *
@@ -2332,6 +2339,7 @@ public abstract class AccessHelper {
              * Insert given enumeration values into ordered list of enumeration values overriding
              * previous enumeration values for same ordinal numbers.
              *
+             * @param   <Type>  enumeration type.
              * @param   values  ordered list of enumeration values.
              * @param   others  list of enumeration values to insert.
              *
@@ -2358,6 +2366,7 @@ public abstract class AccessHelper {
              * extended array. If the second array is {@code null} or empty, the first array is
              * returned without copying.
              *
+             * @param   <Type>  array value type.
              * @param   values  first array values.
              * @param   others  second array values (may be null or empty).
              *
@@ -2394,7 +2403,7 @@ public abstract class AccessHelper {
     /**
      * Bean access helper.
      */
-    protected abstract static class Beans { // NOPMD; helper!
+    protected abstract static class Beans {
 
         /**
          * Bean property resolution mode (used for field, getter, and setter resolution).
@@ -2796,7 +2805,7 @@ public abstract class AccessHelper {
         /**
          * Check consistency of property class type, declared property field, declared getter
          * method, and declared setter method and return bean property class type. If the bean
-         * property class type is {@link null}, it is determined from property field, declared
+         * property class type is {@code null}, it is determined from property field, declared
          * getter method, or declared setter method.
          *
          * @param   <Type>  property type.
@@ -2933,8 +2942,9 @@ public abstract class AccessHelper {
              * split to bean context class type and bean context name. Otherwise, a bean context
              * with bean property name and default bean context class type is returned.
              *
-             * @param   name  bean property name.
-             * @param   type  default bean property class type.
+             * @param   <Type>  property value type.
+             * @param   name    bean property name.
+             * @param   type    default bean property class type.
              *
              * @return  bean context.
              */
@@ -2954,7 +2964,8 @@ public abstract class AccessHelper {
              * context name. Otherwise, a bean context with bean property name and {@code null} bean
              * context class type is returned.
              *
-             * @param   name  bean property name.
+             * @param   <Type>  property value type.
+             * @param   name    bean property name.
              *
              * @return  bean context.
              */
@@ -3011,7 +3022,7 @@ public abstract class AccessHelper {
         /**
          * Private bean access helper.
          */
-        private abstract static class Helper { // NOPMD: helper!
+        private abstract static class Helper {
 
             /**
              * Resolve property class type of given owner class type using given list of property
@@ -3114,6 +3125,7 @@ public abstract class AccessHelper {
              * containing properties. Elements are addressed either by index (arrays, list, sets) or
              * by name (objects, maps - as long as keys of maps can created using via string).
              *
+             * @param   <Type>  property value type.
              * @param   target  target object value.
              * @param   name    target property name.
              *
@@ -3142,6 +3154,7 @@ public abstract class AccessHelper {
              * Read target property value identified by given target property name from given target
              * object array.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object array.
              * @param   name    target property name.
              *
@@ -3160,6 +3173,7 @@ public abstract class AccessHelper {
              * Read target property value identified by given target property name from given target
              * object list.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object list.
              * @param   name    target property name.
              *
@@ -3177,6 +3191,7 @@ public abstract class AccessHelper {
              * Read target property value identified by given target property name from given target
              * object map.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object map.
              * @param   name    target property name.
              *
@@ -3220,6 +3235,7 @@ public abstract class AccessHelper {
              * Read target property value identified by given target property name from given target
              * object collection.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object collection.
              * @param   name    target property name.
              *
@@ -3250,6 +3266,7 @@ public abstract class AccessHelper {
              * addressed either by index (arrays, list, sets) or by name (objects, maps - as long as
              * keys of maps can created using via string).
              *
+             * @param   <Type>  property value type.
              * @param   target  target object value.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3279,6 +3296,7 @@ public abstract class AccessHelper {
              * Write given target property value to property identified by given target property
              * name on given target object array and return previous property value.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object array.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3300,6 +3318,7 @@ public abstract class AccessHelper {
              * Write given target property value to property identified by given target property
              * name on given target object list and return previous property value.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object list.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3324,6 +3343,7 @@ public abstract class AccessHelper {
              * Write given target property value to property identified by given target property
              * name on given target object map and return previous property value.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object map.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3369,6 +3389,7 @@ public abstract class AccessHelper {
              * Write given target property value to property identified by given target property
              * name on given target object collection and return previous property value.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object collection.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3401,6 +3422,7 @@ public abstract class AccessHelper {
              * Resolve previous target property value from target object collection using given
              * target property name and target property value to determine property type.
              *
+             * @param   <Type>  property value type.
              * @param   target  target object collection.
              * @param   name    target property name.
              * @param   value   target property value.
@@ -3426,6 +3448,7 @@ public abstract class AccessHelper {
              * Resolve element value at given target index in given iterable target object. If
              * remove flag is given, the element value is remove from target object.
              *
+             * @param   <Type>  property value type.
              * @param   target  iterable target object value.
              * @param   index   target index for element value.
              * @param   remove  whether to remove element value at index from target object value.

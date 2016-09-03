@@ -3,7 +3,6 @@ package org.jactors.junit.theory;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import org.jactors.junit.theory.CompareTheory;
 import org.junit.FixMethodOrder;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.runner.RunWith;
@@ -22,12 +21,12 @@ import org.junit.runners.Suite;
         CompareTheoryTest.ComparatorTheory.class
     }
 )
-public class CompareTheoryTest { // NOPMD: test suite!
+public class CompareTheoryTest {
 
     /**
-     * Sinleton comparator isntance.
+     * Singleton comparator instance.
      */
-    private static final Compares COMPARATOR = new Compares();
+    protected static final Compares COMPARATOR = new Compares();
 
     /**
      * Custom comparable.
@@ -42,7 +41,7 @@ public class CompareTheoryTest { // NOPMD: test suite!
         /**
          * Comparable name.
          */
-        private final String name;
+        protected final String name;
 
         /**
          * Create custom comparable with given name.
@@ -100,7 +99,7 @@ public class CompareTheoryTest { // NOPMD: test suite!
     /**
      * Custom comparator.
      */
-    private static final class Compares implements Comparator<Compare> {
+    protected static final class Compares implements Comparator<Compare> {
 
         /**
          * {@inheritDoc}

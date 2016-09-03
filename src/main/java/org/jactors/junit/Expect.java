@@ -1,4 +1,4 @@
-package org.jactors.junit; // NOPMD: name space!
+package org.jactors.junit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -154,7 +154,7 @@ public @interface Expect {
         /**
          * List of expectations matchers.
          */
-        private final List<org.hamcrest.Matcher<?>> matchers = // NOPMD: personal style!
+        private final List<org.hamcrest.Matcher<?>> matchers =
             new ArrayList<org.hamcrest.Matcher<?>>();
 
         /**
@@ -183,7 +183,7 @@ public @interface Expect {
          *
          * @return  expected exception rule for further setup.
          */
-        protected final Rule expect(Test test, Expect expect) {
+        public final Rule expect(Test test, Expect expect) {
             if ((test != null) && (test.expected() != Test.None.class)) {
                 if (expect == null) {
                     return this.expect(CoreMatchers.instanceOf(test.expected()));
@@ -238,7 +238,7 @@ public @interface Expect {
          *
          * @return  list of expectation matchers.
          */
-        protected List<org.hamcrest.Matcher<?>> matchers() {
+        public List<org.hamcrest.Matcher<?>> matchers() {
             return this.matchers;
         }
 
@@ -279,7 +279,7 @@ public @interface Expect {
          * @return  string matcher.
          */
         protected static org.hamcrest.Matcher<String> message(String pattern, Matcher matcher) {
-            return ToStringMatcher.<String>create(pattern, matcher);
+            return ToStringMatcher.create(pattern, matcher);
         }
 
         /**
@@ -391,7 +391,7 @@ public @interface Expect {
          * String matcher that allows to define use different dynamic matching strategies including
          * equals, contains, starts with, ends with, and regular expressions.
          */
-        private static final class ToStringMatcher<Type> extends BaseMatcher<String> {
+        private static final class ToStringMatcher extends BaseMatcher<String> {
 
             /**
              * String matcher type.
@@ -425,8 +425,8 @@ public @interface Expect {
              * @return  string matcher.
              */
             @Factory
-            public static <Type> ToStringMatcher<Type> create(String pattern, Expect.Matcher matcher) {
-                return new ToStringMatcher<Type>(matcher, pattern);
+            public static ToStringMatcher create(String pattern, Expect.Matcher matcher) {
+                return new ToStringMatcher(matcher, pattern);
             }
 
             /**
@@ -461,7 +461,7 @@ public @interface Expect {
             /**
              * Expected exception failure.
              */
-            private final Expect expect; // NOPMD: personal style!
+            private final Expect expect;
 
             /**
              * Actual mismatch position.
@@ -482,6 +482,7 @@ public @interface Expect {
              * Create general expectation based exception matcher with given expected exception
              * failure.
              *
+             * @param   <Type>  type exception to throw.
              * @param   expect  expected exception failure.
              *
              * @return  general expectation based exception matcher.
@@ -586,7 +587,7 @@ public @interface Expect {
         /**
          * Expected exception.
          */
-        private Expect expect = // NOPMD: personal style.
+        private Expect expect =
             new Expected(Test.None.class, UNAVAILABLE, Matcher.EQUALS, new Cause[] {});
 
         /**
@@ -861,17 +862,17 @@ public @interface Expect {
             /**
              * Expected failure exception class type.
              */
-            private final Class<? extends Throwable> type; // NOPMD: personal style!
+            private final Class<? extends Throwable> type;
 
             /**
              * Expected failure message pattern.
              */
-            private final String message; // NOPMD: personal style!
+            private final String message;
 
             /**
              * Failure message matcher type.
              */
-            private final Matcher matcher; // NOPMD: personal style!
+            private final Matcher matcher;
 
             /**
              * Create base expected exception information with given expected exception class type,

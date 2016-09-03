@@ -39,7 +39,7 @@ public abstract class SpringRule {
     /**
      * Test context manager.
      */
-    private TestContextManager manager; // NOPMD: personal style!
+    private TestContextManager manager;
 
     /**
      * Return test context manager.
@@ -61,7 +61,7 @@ public abstract class SpringRule {
      *
      * @throws  Exception  if test context manager failed.
      */
-    private void prepare(Class<?> type, Object target) throws Exception {
+    protected void prepare(Class<?> type, Object target) throws Exception {
         if (target != null) {
             for (Field field : AccessHelper.Fields.resolve(type, SpringRule.class, //
                     AccessHelper.Resolve.Type.CHILD)) {
@@ -90,7 +90,7 @@ public abstract class SpringRule {
      *
      * @throws  Exception  if test context manager failed.
      */
-    private void before(Method method, Object target) throws Exception {
+    protected void before(Method method, Object target) throws Exception {
         if ((method != null) & (target != null)) {
             this.manager.beforeTestMethod(target, method);
         } else {
@@ -105,10 +105,11 @@ public abstract class SpringRule {
      *
      * @param   method  target test method (may be null).
      * @param   target  target test object instance (may be null).
+     * @param   cause   target exception thrown during execution (may be null).
      *
      * @throws  Exception  if test context manager failed.
      */
-    private void after(Method method, Object target, Throwable cause) throws Exception {
+    protected void after(Method method, Object target, Throwable cause) throws Exception {
         if ((method != null) & (target != null)) {
             this.manager.afterTestMethod(target, method, cause);
         } else {
