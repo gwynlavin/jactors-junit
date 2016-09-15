@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import net.jcip.annotations.NotThreadSafe;
+
 import org.hamcrest.CoreMatchers;
 import org.jactors.junit.EnumTest;
 import org.jactors.junit.Expect;
@@ -167,7 +169,6 @@ public class BeanHelperTest implements EnumTest.Unknown {
          * Check bean property definition creation and behavior.
          */
         @FixMethodOrder(MethodSorters.JVM)
-        @RunWith(BlockJUnit4ClassRunner.class)
         public static final class DefaultBehavior {
 
             /**
@@ -476,7 +477,6 @@ public class BeanHelperTest implements EnumTest.Unknown {
         /**
          * Check bean property accessor creation and behavior.
          */
-        @FixMethodOrder(MethodSorters.JVM)
         @RunWith(BlockJUnit4ClassRunner.class)
         public static final class DefaultBehavior extends AccessHelperTest {
 
@@ -799,6 +799,8 @@ public class BeanHelperTest implements EnumTest.Unknown {
          *
          * @param  <Type>  property type.
          */
+        @NotThreadSafe
+        @FixMethodOrder(MethodSorters.JVM)
         public static final class ComplexBehavior<Type> extends ParameterTest {
 
             /**

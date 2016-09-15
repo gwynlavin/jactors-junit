@@ -13,11 +13,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.easymock.EasyMock;
 import org.hamcrest.CoreMatchers;
 import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.helper.BeanHelper;
 import org.junit.Assert;
+import org.mockito.Mockito;
 
 /**
  * Property definition.
@@ -180,7 +180,7 @@ public @interface Property {
         /**
          * Property helper.
          */
-        private abstract static class Helper {
+        private final static class Helper {
             /**
              * Any enum value.
              */
@@ -307,7 +307,7 @@ public @interface Property {
                 if (type.isArray()) {
                     return Array.newInstance(type.getComponentType(), 1);
                 } else if (type.isInterface()) {
-                    return EasyMock.createMock(type);
+                    return Mockito.mock(type);
                 } else if (type.isEnum()) {
                     for (Object next : type.getEnumConstants()) {
                         if (next != value) {
@@ -315,8 +315,7 @@ public @interface Property {
                         }
                     }
                     try {
-                        return AccessHelper.Enums.create(type.asSubclass(Enum.class), value + "*", 0,
-                                new Class<?>[] {});
+                        return AccessHelper.Enums.create(type.asSubclass(Enum.class), value + "*", 0, new Class<?>[] {});
                     } catch (AccessHelper.Failure failure) {
                         Assert.fail("invalid enum value [type=" + type.getName() + ", property=" + property + "]");
                     }
@@ -350,7 +349,7 @@ public @interface Property {
                 } catch (RuntimeException except) {
                     Assert.fail("unable to create value [type=" + type.getName() + ", property=" + property + "]");
                 }
-                return null;
+                return Mockito.mock(type);
             }
         }
 

@@ -23,16 +23,11 @@ import org.junit.runner.RunWith;
  * checks the availability and consistency of {@link Object#toString()}, making the assumption that
  * the result should neither be null nor empty.
  *
- * @param  <Type>  object type.
+ * @param <Type> object type.
  */
 @Ignore
 @RunWith(Theories.class)
 public abstract class CompareTheory<Type> extends ObjectTheory {
-
-    /**
-     * Whether object theory for equals is enabled.
-     */
-    protected final boolean compare;
 
     /**
      * Operator instance for comparing (comparator).
@@ -48,32 +43,26 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
     }
 
     /**
-     * Create default compare theory for given operator instance for comparing with all object
-     * theories enabled and default number of rounds for consistency checks (10). If no compare
-     * operator instance is provided, it is assumed that object instances implement
-     * {@link Comparable}.
+     * Create default compare theory for given operator instance for comparing with default number
+     * of rounds for consistency checks (10). If no compare operator instance is provided, it is
+     * assumed that object instances implement {@link Comparable}.
      *
-     * @param  operator  operator instance for comparing (comparator - may be null).
+     * @param operator operator instance for comparing (comparator - may be null).
      */
     protected CompareTheory(Comparator<Type> operator) {
-        this(operator, true, (operator == null), (operator == null), CONSISTENCY_CHECKS);
+        this(operator, CONSISTENCY_CHECKS);
     }
 
     /**
-     * Create compare theory for given operator instance for comparing with given flags whether
-     * object theory for compare, equals, and string are enabled, as well as given number of rounds
+     * Create compare theory for given operator instance for comparing with given number of rounds
      * for consistency checks. If no compare operator instance is provided, it is assumed that
      * object instances implement {@link Comparable}.
      *
-     * @param  operator  operator instance for comparing (comparator).
-     * @param  compare   flag whether object theory for compare is enabled.
-     * @param  equals    flag whether object theory for equals is enabled.
-     * @param  string    flag whether object theory for string is enabled.
-     * @param  checks    number of rounds for consistency checks.
+     * @param operator operator instance for comparing (comparator).
+     * @param checks number of rounds for consistency checks.
      */
-    protected CompareTheory(Comparator<Type> operator, boolean compare, boolean equals, boolean string, int checks) {
-        super(equals, string, checks);
-        this.compare = compare;
+    protected CompareTheory(Comparator<Type> operator, int checks) {
+        super(checks);
         this.operator = operator;
     }
 
@@ -83,26 +72,21 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
      * {@code x.compareTo(y)} must throw an exception iff {@code y.compareTo(x)} throws an
      * exception.
      *
-     * @param  x  primary object instance.
-     * @param  y  secondary object instance.
+     * @param x primary object instance.
+     * @param y secondary object instance.
      */
     @Theory(nullsAccepted = false)
     public final void compareToIsSymmetric(Type x, Type y) {
-        if (this.compare) {
-            Assume.assumeNotNull(x);
-            Assume.assumeNotNull(y);
+        CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X-Y", this.operator, x, y);
+        CompareTheory.Atom<Type> yToX = new CompareTheory.Atom<Type>("Y-X", this.operator, y, x);
 
-            CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X-Y", this.operator, x, y);
-            CompareTheory.Atom<Type> yToX = new CompareTheory.Atom<Type>("Y-X", this.operator, y, x);
-
-            if (Helper.okay(xToY, yToX)) {
-                Assert.assertThat(xToY.value, CoreMatchers.is(CoreMatchers.equalTo(-yToX.value)));
-            } else {
-                Assert.assertThat("only X threw an exception.", yToX.except,
+        if (Helper.okay(xToY, yToX)) {
+            Assert.assertThat(xToY.value, CoreMatchers.is(CoreMatchers.equalTo(-yToX.value)));
+        } else {
+            Assert.assertThat("only X threw an exception.", yToX.except,
                     CoreMatchers.is(CoreMatchers.not(CoreMatchers.equalTo(null))));
-                Assert.assertThat("only Y threw an exception.", xToY.except,
+            Assert.assertThat("only Y threw an exception.", xToY.except,
                     CoreMatchers.is(CoreMatchers.not(CoreMatchers.equalTo(null))));
-            }
         }
     }
 
@@ -112,31 +96,26 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
      * {@code x.compareTo(z)&gt;0}. Finally, {@code x.compareTo(y)==0} implies that <tt>
      * {@code sgn(x.compareTo(z)) == sgn(y.compareTo(z))}, for all {@code z}.</tt>
      *
-     * @param  x  primary object instance.
-     * @param  y  secondary object instance.
-     * @param  z  tertiary object instance.
+     * @param x primary object instance.
+     * @param y secondary object instance.
+     * @param z tertiary object instance.
      */
-    @Theory
+    @Theory(nullsAccepted = false)
     public final void compareToIsTransitive(Type x, Type y, Type z) {
-        if (this.compare) {
-            Assume.assumeNotNull(x);
-            Assume.assumeNotNull(y);
+        CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X-Y", this.operator, x, y);
+        CompareTheory.Atom<Type> yToZ = new CompareTheory.Atom<Type>("Y-Z", this.operator, y, z);
+        CompareTheory.Atom<Type> xToZ = new CompareTheory.Atom<Type>("Z-X", this.operator, x, z);
 
-            CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X-Y", this.operator, x, y);
-            CompareTheory.Atom<Type> yToZ = new CompareTheory.Atom<Type>("Y-Z", this.operator, y, z);
-            CompareTheory.Atom<Type> xToZ = new CompareTheory.Atom<Type>("Z-X", this.operator, x, z);
-
-            if (Helper.okay(xToY, yToZ, xToZ)) {
-                Assume.assumeTrue((xToY.value > 0) && (yToZ.value > 0));
-                Assert.assertThat(xToZ.value, CoreMatchers.is(Matchers.greaterThan(0)));
-            } else {
-                Assert.assertThat(Helper.message("X", yToZ, xToZ), xToY,
+        if (Helper.okay(xToY, yToZ, xToZ)) {
+            Assume.assumeTrue((xToY.value > 0) && (yToZ.value > 0));
+            Assert.assertThat(xToZ.value, CoreMatchers.is(Matchers.greaterThan(0)));
+        } else {
+            Assert.assertThat(Helper.message("X", yToZ, xToZ), xToY,
                     CoreMatchers.is(CoreMatchers.not(CoreMatchers.equalTo(null))));
-                Assert.assertThat(Helper.message("Y", xToY, xToZ), yToZ,
+            Assert.assertThat(Helper.message("Y", xToY, xToZ), yToZ,
                     CoreMatchers.is(CoreMatchers.not(CoreMatchers.equalTo(null))));
-                Assert.assertThat(Helper.message("Z", xToY, yToZ), xToZ,
+            Assert.assertThat(Helper.message("Z", xToY, yToZ), xToZ,
                     CoreMatchers.is(CoreMatchers.not(CoreMatchers.equalTo(null))));
-            }
         }
     }
 
@@ -145,27 +124,25 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
      * strongly recommended, but <i>not</i> strictly required that for all {@code x} and {@code y},
      * {@code (x.compareTo(y)==0) == (x.equals(y))}.
      *
-     * @param  x  primary object instance.
-     * @param  y  secondary object instance.
+     * @param x primary object instance.
+     * @param y secondary object instance.
      */
     @Theory
     public final void compareToIsConsistentToEquals(Type x, Type y) {
-        if (this.compare && this.equals) {
-            Assume.assumeNotNull(x);
+        Assume.assumeNotNull(x);
 
-            CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X", this.operator, x, y);
+        CompareTheory.Atom<Type> xToY = new CompareTheory.Atom<Type>("X", this.operator, x, y);
 
-            Assume.assumeThat(xToY.except != null, CoreMatchers.is(CoreMatchers.equalTo(false)));
-            Assume.assumeThat(xToY.value, CoreMatchers.is(CoreMatchers.equalTo(0)));
+        Assume.assumeThat(xToY.except != null, CoreMatchers.is(CoreMatchers.equalTo(false)));
+        Assume.assumeThat(xToY.value, CoreMatchers.is(CoreMatchers.equalTo(0)));
 
-            Assert.assertThat(x.equals(y), CoreMatchers.is(CoreMatchers.equalTo(true)));
-        }
+        Assert.assertThat(x.equals(y), CoreMatchers.is(CoreMatchers.equalTo(true)));
     }
 
     /**
      * Test atom that executes compare and stores the result or exception.
      *
-     * @param  <Type>  test atom type.
+     * @param <Type> test atom type.
      */
     private static final class Atom<Type> {
 
@@ -189,10 +166,10 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
          * instance, and given secondary object instance. If no comparator instance is provided, it
          * is assumed that object instances implement {@link Comparable}.
          *
-         * @param  label  atom label.
-         * @param  c      compare operator instance (may be null).
-         * @param  x      primary object instance.
-         * @param  y      secondary object instance.
+         * @param label atom label.
+         * @param c compare operator instance (may be null).
+         * @param x primary object instance.
+         * @param y secondary object instance.
          */
         @SuppressWarnings("unchecked")
         protected Atom(String label, Comparator<Type> c, Type x, Type y) {
@@ -218,25 +195,25 @@ public abstract class CompareTheory<Type> extends ObjectTheory {
          * Create error message with given error message prefix, primary test atom, and secondary
          * test atom.
          *
-         * @param   <Type>  type of atom.
-         * @param   prefix  error message prefix.
-         * @param   a       primary test atom.
-         * @param   b       secondary test atom.
-         *
-         * @return  error message.
+         * @param <Type> type of atom.
+         * @param prefix error message prefix.
+         * @param a primary test atom.
+         * @param b secondary test atom.
+         * @return error message.
          */
-        protected static <Type> String message(String prefix, CompareTheory.Atom<Type> a, CompareTheory.Atom<Type> b) {
-            return new StringBuilder(64).append(prefix).append(" did not throw an exception, while ").append(a.label)
-                .append(" did ").append((a.except == null) ? "not " : "").append(" and").append(b.label).append(" did ")
-                .append((b.except == null) ? "not " : "").toString();
+        protected static <Type> String message(String prefix, CompareTheory.Atom<Type> a,
+                CompareTheory.Atom<Type> b) {
+            return new StringBuilder(64).append(prefix)
+                    .append(" did not throw an exception, while ").append(a.label).append(" did ")
+                    .append((a.except == null) ? "not " : "").append(" and").append(b.label)
+                    .append(" did ").append((b.except == null) ? "not " : "").toString();
         }
 
         /**
          * Check whether all given test atoms are free of exceptions.
          *
-         * @param   atoms  list of test atoms.
-         *
-         * @return  whether test atoms are free of exceptions.
+         * @param atoms list of test atoms.
+         * @return whether test atoms are free of exceptions.
          */
         protected static boolean okay(final CompareTheory.Atom<?>... atoms) {
             for (CompareTheory.Atom<?> atom : atoms) {

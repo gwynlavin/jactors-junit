@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.Description;
@@ -28,7 +27,6 @@ import org.springframework.test.context.ContextConfiguration;
 /**
  * Simple spring rule test.
  */
-@Ignore
 @NotThreadSafe
 @FixMethodOrder(MethodSorters.JVM)
 @ContextConfiguration("classpath:spring-test.xml")

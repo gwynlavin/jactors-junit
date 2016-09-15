@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -17,7 +18,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
     {
         CompareTheoryTest.ComparableTheory.class,
-        CompareTheoryTest.ComparatorTheory.class
+        CompareTheoryTest.ComparatorTheory.class,
+        CompareTheoryTest.OtherBehavior.class
     }
 )
 public class CompareTheoryTest {
@@ -147,6 +149,16 @@ public class CompareTheoryTest {
          */
         public ComparatorTheory() {
             super(COMPARATOR);
+        }
+    }
+
+    /**
+     * Other behavior tests.
+     */
+    public static class OtherBehavior {
+        @Test
+        public void test() {
+
         }
     }
 }

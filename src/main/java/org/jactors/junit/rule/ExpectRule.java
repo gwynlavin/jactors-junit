@@ -165,7 +165,7 @@ public final class ExpectRule extends Expect.Rule implements TestRule {
     /**
      * Helper class for cleaning up statement chain from exception trapping.
      */
-    private abstract static class Helper {
+    private static final class Helper {
 
         /**
          * Remove all statements extending given statement class type from statement chain with

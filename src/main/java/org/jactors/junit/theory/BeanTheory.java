@@ -1,7 +1,6 @@
 package org.jactors.junit.theory;
 
 import org.jactors.junit.Property;
-import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -25,7 +24,6 @@ public abstract class BeanTheory {
      */
     @Theory(nullsAccepted = false)
     public final void isBeanValid(Object target) throws Throwable {
-        Assume.assumeNotNull(target);
         new Property.Checker().check(target, this);
     }
 }
