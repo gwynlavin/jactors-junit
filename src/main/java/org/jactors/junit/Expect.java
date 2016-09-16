@@ -856,7 +856,7 @@ public @interface Expect {
         /**
          * Base expected exception information.
          */
-        private abstract static class Config implements Cause {
+        private static abstract class Config implements Cause {
 
             /**
              * Expected failure exception class type.

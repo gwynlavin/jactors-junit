@@ -532,7 +532,7 @@ public abstract class BeanHelper {
         /**
          * Property helper.
          */
-        protected abstract static class Helper {
+        protected static abstract class Helper {
 
             /**
              * Group index of bean path.

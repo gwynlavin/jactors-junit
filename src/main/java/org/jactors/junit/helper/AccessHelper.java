@@ -1503,6 +1503,11 @@ public abstract class AccessHelper {
             .add(char.class.getName(), Character.class).add(Character.class.getSimpleName(), char.class) //
             .add(void.class.getName(), Void.class).add(Void.class.getSimpleName(), void.class).build();
 
+        /** */
+        private static final Class<?>[] CREATE_TYPES = new Class[] {
+            String.class, byte[].class, int.class, int.class
+        };
+
         /**
          * Find and resolve class type using default class loader of actual thread, given declared
          * class name, and default failure handling mode.
@@ -1545,6 +1550,70 @@ public abstract class AccessHelper {
 
             // throw exception in case of failure!
             return Classes.resolve(name, mode);
+        }
+
+        /**
+         * Create class type using default class loader of actual thread, given declared class name,
+         * given byte code buffer, and given failure handling mode.
+         *
+         * @param   <Type>  result class type.
+         * @param   name    declared class name.
+         * @param   buffer  class byte code buffer.
+         *
+         * @return  class type.
+         */
+        public static <Type> Class<Type> create(String name, byte[] buffer) {
+            return create(Thread.currentThread().getContextClassLoader(), name, buffer,
+                    Failure.Mode.DEFAULT);
+        }
+
+        /**
+         * Create class type using default class loader of actual thread, given declared class name,
+         * given byte code buffer, and given failure handling mode.
+         *
+         * @param   <Type>  result class type.
+         * @param   name    declared class name.
+         * @param   buffer  class byte code buffer.
+         * @param   mode    failure handling mode.
+         *
+         * @return  class type.
+         */
+        public static <Type> Class<Type> create(String name, byte[] buffer, Failure.Mode mode) {
+            return create(Thread.currentThread().getContextClassLoader(), name, buffer, mode);
+        }
+
+        /**
+         * Create class type using given class loader, given declared class name, given byte code
+         * buffer, and default failure handling mode.
+         *
+         * @param   <Type>  result class type.
+         * @param   loader  class loader.
+         * @param   name    declared class name.
+         * @param   buffer  class byte code buffer.
+         *
+         * @return  class type.
+         */
+        public static <Type> Class<Type> create(ClassLoader loader, String name, byte[] buffer) {
+            return create(loader, name, buffer, Failure.Mode.DEFAULT);
+        }
+
+        /**
+         * Create class type using given class loader, given declared class name, given byte code
+         * buffer, and given failure handling mode.
+         *
+         * @param   <Type>  result class type.
+         * @param   loader  class loader.
+         * @param   name    declared class name.
+         * @param   buffer  class byte code buffer.
+         * @param   mode    failure handling mode.
+         *
+         * @return  class type.
+         */
+        public static <Type> Class<Type> create(ClassLoader loader, String name, byte[] buffer,
+                Failure.Mode mode) {
+            return Methods.invoke(loader, "defineClass", CREATE_TYPES, mode, new Object[] {
+                name, buffer, 0, buffer.length
+            });
         }
 
         /**
