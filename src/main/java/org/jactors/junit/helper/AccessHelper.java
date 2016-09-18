@@ -95,7 +95,7 @@ public abstract class AccessHelper {
     /**
      * Internal constants.
      */
-    private abstract static class Base {
+    private static abstract class Base {
 
         /**
          * Group index of bean path.
@@ -942,7 +942,7 @@ public abstract class AccessHelper {
     /**
      * Field specific access methods.
      */
-    public abstract static class Fields {
+    public static abstract class Fields {
 
         /**
          * Resolve declared field for given declaring class type using given declared field name and
@@ -1260,7 +1260,7 @@ public abstract class AccessHelper {
     /**
      * Method specific access methods.
      */
-    public abstract static class Methods {
+    public static abstract class Methods {
 
         /**
          * Resolve declared method for given declaring class type with given declared method name,
@@ -1469,7 +1469,7 @@ public abstract class AccessHelper {
     /**
      * Class specific access methods.
      */
-    public abstract static class Classes {
+    public static abstract class Classes {
 
         /**
          * Name to class type mapping.
@@ -1807,7 +1807,7 @@ public abstract class AccessHelper {
     /**
      * Object/Constructor specific access methods.
      */
-    public abstract static class Objects {
+    public static abstract class Objects {
 
         /**
          * Resolve declared constructor for given declaring class type using default failure
@@ -2111,7 +2111,7 @@ public abstract class AccessHelper {
      * demand. Note: This implementation is based on some internals that might change with new Java
      * versions.
      */
-    public abstract static class Enums {
+    public static abstract class Enums {
 
         /**
          * Resolve enumeration value for given enumeration class type and enumeration value name
@@ -2472,7 +2472,7 @@ public abstract class AccessHelper {
     /**
      * Bean access helper.
      */
-    public abstract static class Beans {
+    public static abstract class Beans {
 
         /**
          * Bean property resolution mode (used for field, getter, and setter resolution).
@@ -3091,7 +3091,7 @@ public abstract class AccessHelper {
         /**
          * Private bean access helper.
          */
-        private abstract static class Helper {
+        private static abstract class Helper {
 
             /**
              * Resolve property class type of given owner class type using given list of property

@@ -45,21 +45,6 @@
         <developerConnection>scm:git:git@github.com:jactors/jactors-junit.git</developerConnection>
     </scm>
 
-    <properties>
-        <slf4j.version>1.7.21</slf4j.version>
-        <junit.version>4.11</junit.version>
-	<assertj.version>1.7.1</assertj.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <mockito.version>2.1.0-RC.1</mockito.version>
-	<reflections.version>0.9.10</reflections.version>
-	<spring.version>3.0.5.RELEASE</spring.version>
-
-	<java.version>1.6</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <!-- logging -->
         <dependency>
@@ -165,12 +150,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>${compiler.plugin.version}</version>
                 <configuration>
                     <compilerArgs>
-                        <compilerArg>-Xlint:unchecked</compilerArg>
-                        <compilerArg>-Werror</compilerArg>
-                        <!--compilerArg>-parameters</compilerArg-->
+                        <compilerArg>${compiler.args}</compilerArg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -344,6 +327,102 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+	    <id>java-1.5</id>
+	    <activation>
+	        <jdk>1.5</jdk>
+	    </activation>
+
+	    <properties>
+	        <slf4j.version>1.7.21</slf4j.version>
+		<junit.version>4.11</junit.version>
+		<assertj.version>1.7.1</assertj.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<mockito.version>1.10.19</mockito.version>
+		<reflections.version>0.9.10</reflections.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+
+		<java.version>1.5</java.version>
+		<compiler.args></compiler.args>
+		<compiler.plugin.version>2.5.1</compiler.plugin.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    </properties>
+	</profile>
+
+        <profile>
+	    <id>java-1.6</id>
+	    <activation>
+	        <jdk>1.6</jdk>
+	    </activation>
+
+	    <properties>
+	        <slf4j.version>1.7.21</slf4j.version>
+		<junit.version>4.11</junit.version>
+		<assertj.version>1.7.1</assertj.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<mockito.version>2.1.0-RC.1</mockito.version>
+		<reflections.version>0.9.10</reflections.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+
+		<java.version>1.6</java.version>
+		<compiler.args></compiler.args>
+		<compiler.plugin.version>3.5.1</compiler.plugin.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    </properties>
+	</profile>
+
+        <profile>
+	    <id>java-1.7</id>
+	    <activation>
+	        <jdk>1.7</jdk>
+	    </activation>
+
+	    <properties>
+	        <slf4j.version>1.7.21</slf4j.version>
+		<junit.version>4.11</junit.version>
+		<assertj.version>1.7.1</assertj.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<mockito.version>2.1.0-RC.1</mockito.version>
+		<reflections.version>0.9.10</reflections.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+
+		<java.version>1.7</java.version>
+		<compiler.args></compiler.args>
+		<compiler.plugin.version>3.5.1</compiler.plugin.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    </properties>
+	</profile>
+
+        <profile>
+	    <id>java-1.8</id>
+	    <activation>
+	        <jdk>1.8</jdk>
+	    </activation>
+
+	    <properties>
+	        <slf4j.version>1.7.21</slf4j.version>
+		<junit.version>4.11</junit.version>
+		<assertj.version>1.7.1</assertj.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<mockito.version>2.1.0-RC.1</mockito.version>
+		<reflections.version>0.9.10</reflections.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+
+		<java.version>1.8</java.version>
+		<compiler.args>-parameters</compiler.args>
+		<compiler.plugin.version>3.5.1</compiler.plugin.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    </properties>
+	</profile>
     </profiles>
 
 </project>

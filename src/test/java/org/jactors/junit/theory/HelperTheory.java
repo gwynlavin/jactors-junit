@@ -62,8 +62,7 @@ public abstract class HelperTheory {
 
         public static <Types> Class<? extends Types> load(Class<Types> type) {
             ClassWriter cw = new ClassWriter(0);
-            ClassVisitor cv = cw;// new ClassAdapter(cw);
-            Abstracts.create(cv, type.getCanonicalName().replace('.', '/'), ICLASS);
+            Abstracts.create(cw, type.getCanonicalName().replace('.', '/'), ICLASS);
             return AccessHelper.Classes.create(CLASS, cw.toByteArray());
         }
 
@@ -73,7 +72,7 @@ public abstract class HelperTheory {
          * @param name
          */
         private static void create(ClassVisitor cv, String owner, String name) {
-            cv.visit(V1_6, ACC_PUBLIC + ACC_SUPER, name, null, owner, null);
+            cv.visit(V1_5, ACC_PUBLIC + ACC_SUPER, name, null, owner, null);
             cv.visitSource(null, null);
             cv.visitInnerClass(name, owner, "Test", ACC_PUBLIC + ACC_STATIC);
             Abstracts.create(cv.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null), owner, name);
