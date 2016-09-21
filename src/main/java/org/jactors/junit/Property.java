@@ -5,8 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +19,6 @@ import org.hamcrest.CoreMatchers;
 import org.jactors.junit.helper.AccessHelper;
 import org.jactors.junit.helper.BeanHelper;
 import org.junit.Assert;
-import org.mockito.Mockito;
 
 /**
  * Property definition.
@@ -307,7 +308,7 @@ public @interface Property {
                 if (type.isArray()) {
                     return Array.newInstance(type.getComponentType(), 1);
                 } else if (type.isInterface()) {
-                    return Mockito.mock(type);
+                    return Helper.mock(type);
                 } else if (type.isEnum()) {
                     for (Object next : type.getEnumConstants()) {
                         if (next != value) {
@@ -349,7 +350,43 @@ public @interface Property {
                 } catch (RuntimeException except) {
                     Assert.fail("unable to create value [type=" + type.getName() + ", property=" + property + "]");
                 }
-                return Mockito.mock(type);
+                return Helper.mock(type);
+            }
+
+            /**
+             * Create mock object for given mock class type.
+             *
+             * @param  <Type>  mock object type
+             * @param  type    class type of mock object.
+             * @return mock object.
+             */
+            private static <Type> Type mock(Class<Type> type) {
+                return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class[] {
+                    type
+                }, new MockHandler()));
+            }
+
+            /**
+             * Mock proxy invocation handler.
+             */
+            protected static final class MockHandler implements InvocationHandler {
+                /**
+                 * {@inheritDoc}
+                 */
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    if (method.getName().equals("hashCode")) {
+                        return this.hashCode();
+                    } else if (method.getName().equals("equals")) {
+                        return proxy == args[0];
+                    } else if (method.getName().equals("toString")) {
+                        return this.toString();
+                    }
+                    Class<?> type = method.getReturnType();
+                    if ((type == boolean.class) || (type == Boolean.class)) {
+                        return true;
+                    }
+                    return null;
+                }
             }
         }
 
