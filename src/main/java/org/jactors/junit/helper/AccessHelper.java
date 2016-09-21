@@ -1553,36 +1553,6 @@ public abstract class AccessHelper {
         }
 
         /**
-         * Create class type using default class loader of actual thread, given declared class name,
-         * given byte code buffer, and given failure handling mode.
-         *
-         * @param   <Type>  result class type.
-         * @param   name    declared class name.
-         * @param   buffer  class byte code buffer.
-         *
-         * @return  class type.
-         */
-        public static <Type> Class<Type> create(String name, byte[] buffer) {
-            return create(Thread.currentThread().getContextClassLoader(), name, buffer,
-                    Failure.Mode.DEFAULT);
-        }
-
-        /**
-         * Create class type using default class loader of actual thread, given declared class name,
-         * given byte code buffer, and given failure handling mode.
-         *
-         * @param   <Type>  result class type.
-         * @param   name    declared class name.
-         * @param   buffer  class byte code buffer.
-         * @param   mode    failure handling mode.
-         *
-         * @return  class type.
-         */
-        public static <Type> Class<Type> create(String name, byte[] buffer, Failure.Mode mode) {
-            return create(Thread.currentThread().getContextClassLoader(), name, buffer, mode);
-        }
-
-        /**
          * Create class type using given class loader, given declared class name, given byte code
          * buffer, and default failure handling mode.
          *

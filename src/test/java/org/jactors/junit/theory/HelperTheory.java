@@ -45,25 +45,20 @@ public abstract class HelperTheory {
                 AccessHelper.Failure.Mode.RETURN_NULL, TYPES));
         LoggerFactory.getLogger(HelperTheory.class).info("create {}", type);
 
-        Assume.assumeTrue(type == AccessHelper.class);
-        if ((type.getModifiers() & Modifier.ABSTRACT) == 0) {
-            Assert.assertNotNull(AccessHelper.Objects.create(type, TYPES, ARGS));
-        } else {
+        if ((type.getModifiers() & Modifier.ABSTRACT) != 0) {
             Assert.assertNotNull(AccessHelper.Objects.create(Abstracts.load(type), TYPES, ARGS));
+        } else {
+            Assert.assertNotNull(AccessHelper.Objects.create(type, TYPES, ARGS));
         }
     }
 
     private static class Abstracts implements Opcodes {
 
-        /** */
-        private static final String CLASS = HelperTheory.class.getCanonicalName() + "$Test";
-        /** */
-        private static final String ICLASS = CLASS.replace('.', '/');
-
         public static <Types> Class<? extends Types> load(Class<Types> type) {
+            String name = type.getName() + "$Test";
             ClassWriter cw = new ClassWriter(0);
-            Abstracts.create(cw, type.getCanonicalName().replace('.', '/'), ICLASS);
-            return AccessHelper.Classes.create(CLASS, cw.toByteArray());
+            Abstracts.create(cw, type.getName().replace('.', '/'), name.replace('.', '/'));
+            return AccessHelper.Classes.create(type.getClassLoader(), name, cw.toByteArray());
         }
 
         /**
@@ -72,7 +67,7 @@ public abstract class HelperTheory {
          * @param name
          */
         private static void create(ClassVisitor cv, String owner, String name) {
-            cv.visit(V1_5, ACC_PUBLIC + ACC_SUPER, name, null, owner, null);
+            cv.visit(V1_5, ACC_PUBLIC + ACC_SUPER + ACC_FINAL, name, null, owner, null);
             cv.visitSource(null, null);
             cv.visitInnerClass(name, owner, "Test", ACC_PUBLIC + ACC_STATIC);
             Abstracts.create(cv.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null), owner, name);
