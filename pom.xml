@@ -127,6 +127,12 @@
 	    <version>${reflections.version}</version>
 	    <scope>test</scope>
 	</dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -342,6 +348,7 @@
 		<mockito.version>1.10.19</mockito.version>
 		<reflections.version>0.9.10</reflections.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
+		<asm.version>5.1</asm.version>
 
 		<java.version>1.5</java.version>
 		<compiler.args></compiler.args>
@@ -366,6 +373,7 @@
 		<mockito.version>2.1.0-RC.1</mockito.version>
 		<reflections.version>0.9.10</reflections.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
+		<asm.version>5.1</asm.version>
 
 		<java.version>1.6</java.version>
 		<compiler.args></compiler.args>
@@ -390,6 +398,7 @@
 		<mockito.version>2.1.0-RC.1</mockito.version>
 		<reflections.version>0.9.10</reflections.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
+		<asm.version>5.1</asm.version>
 
 		<java.version>1.7</java.version>
 		<compiler.args></compiler.args>
@@ -414,6 +423,7 @@
 		<mockito.version>2.1.0-RC.1</mockito.version>
 		<reflections.version>0.9.10</reflections.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
+		<asm.version>5.1</asm.version>
 
 		<java.version>1.8</java.version>
 		<compiler.args>-parameters</compiler.args>

@@ -1503,8 +1503,8 @@ public abstract class AccessHelper {
             .add(char.class.getName(), Character.class).add(Character.class.getSimpleName(), char.class) //
             .add(void.class.getName(), Void.class).add(Void.class.getSimpleName(), void.class).build();
 
-        /** */
-        private static final Class<?>[] CREATE_TYPES = new Class[] {
+        /** Argument types for define class. */
+        private static final Class<?>[] DEFINE_TYPES = new Class[] {
             String.class, byte[].class, int.class, int.class
         };
 
@@ -1581,7 +1581,7 @@ public abstract class AccessHelper {
          */
         public static <Type> Class<Type> create(ClassLoader loader, String name, byte[] buffer,
                 Failure.Mode mode) {
-            return Methods.invoke(loader, "defineClass", CREATE_TYPES, mode, new Object[] {
+            return Methods.invoke(loader, "defineClass", DEFINE_TYPES, mode, new Object[] {
                 name, buffer, 0, buffer.length
             });
         }
